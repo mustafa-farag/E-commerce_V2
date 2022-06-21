@@ -7,6 +7,9 @@ class DefaultTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType type;
   final bool isSecure;
+  final FocusNode? focusNode;
+  final VoidCallback? onEditingComplete;
+  final TextInputAction? textInputAction;
 
   const DefaultTextFormField(
       {Key? key,
@@ -15,7 +18,10 @@ class DefaultTextFormField extends StatelessWidget {
       required this.controller,
       required this.type,
       required this.isSecure,
-      required this.labelText})
+      required this.labelText,
+      this.focusNode,
+      this.onEditingComplete,
+      this.textInputAction})
       : super(key: key);
 
   @override
@@ -25,6 +31,9 @@ class DefaultTextFormField extends StatelessWidget {
       keyboardType: type,
       obscureText: isSecure,
       validator: validate,
+      focusNode: focusNode,
+      onEditingComplete: onEditingComplete,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
           label: Text(labelText),
           floatingLabelBehavior: FloatingLabelBehavior.never,

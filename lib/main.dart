@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromRGBO(249, 249, 249, 1),
       ),
       onGenerateRoute: onGenerateRouter,
-      initialRoute: Routes.loginScreenRoute ,
+      initialRoute: AppRoutes.authScreenRoute ,
     );
   }
 }

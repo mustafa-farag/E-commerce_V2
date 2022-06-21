@@ -1,4 +1,5 @@
-class Routes {
-static const String homePageRoute = '/';
-static const String loginScreenRoute = '/login';
+class AppRoutes {
+static const String landingScreenRoute = '/';
+static const String authScreenRoute = '/login';
+static const String bottomNavBarScreenRoute = '/home';
 }
