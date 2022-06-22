@@ -16,6 +16,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: PersistentTabView(
         context,
@@ -29,10 +30,11 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         stateManagement: true, // Default is true.
         hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(12.0),
           colorBehindNavBar: Colors.white,
         ),
         popAllScreensOnTapOfSelectedTab: true,
+        navBarHeight: size.height*0.09,
         popActionScreens: PopActionScreensType.all,
         itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
