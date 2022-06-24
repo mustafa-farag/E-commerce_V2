@@ -105,7 +105,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       alignment: Alignment.topRight,
                       child: InkWell(
                         onTap: () {},
-                        child: const Text('Forget Your Password?'),
+                        child: Text(
+                          'Forget Your Password?',
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
                       ),
                     ),
                   const SizedBox(
@@ -125,34 +128,51 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: InkWell(
-                      onTap: () {
-                        _emailController.clear();
-                        _passwordController.clear();
-                        _formKey.currentState!.reset();
-                        setState(() {
-                          if (_authType == AuthFormType.login) {
-                            _authType = AuthFormType.register;
-                          } else {
-                            _authType = AuthFormType.login;
-                          }
-                        });
-                      },
-                      child: Text(_authType == AuthFormType.register
-                          ? 'Have an account Login?'
-                          : 'Don\'t have an account? Sign up'),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        _authType == AuthFormType.register
+                            ? 'Have an account ? '
+                            : 'Don\'t have an account? ',
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _emailController.clear();
+                          _passwordController.clear();
+                          _formKey.currentState!.reset();
+                          setState(() {
+                            if (_authType == AuthFormType.login) {
+                              _authType = AuthFormType.register;
+                            } else {
+                              _authType = AuthFormType.login;
+                            }
+                          });
+                        },
+                        child: Text(
+                          _authType == AuthFormType.register
+                              ? 'Login'
+                              : 'Sign up',
+                          style:
+                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: size.height * 0.19,
                   ),
                   Align(
                       alignment: Alignment.center,
-                      child: Text(_authType == AuthFormType.register
-                          ? 'Or sign up with social account?'
-                          : 'Or login with social account')),
+                      child: Text(
+                        _authType == AuthFormType.register
+                            ? 'Or sign up with social account?'
+                            : 'Or login with social account',
+                        style: Theme.of(context).textTheme.subtitle2,
+                      )),
                   const SizedBox(
                     height: 12,
                   ),

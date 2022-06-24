@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: size.height * 0.038,
+            height: size.height * 0.026,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                       itemCount: dummyProducts.length),
                 ),
                 SizedBox(
-                  height: size.height * 0.03,
+                  height: size.height * 0.02,
                 ),
                 _homeHeadlines(context,
                     title: "New", caption: "You've never seen it before!"),

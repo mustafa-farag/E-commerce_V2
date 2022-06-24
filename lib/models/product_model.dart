@@ -5,7 +5,7 @@ class Product {
   final String title;
   final int price;
   final String imgUrl;
-  final int? discountValue;
+  final int discountValue;
   final String category;
   final double? rate;
 
@@ -14,7 +14,7 @@ class Product {
     required this.title,
     required this.price,
     required this.imgUrl,
-    this.discountValue,
+    this.discountValue =0,
     this.category = 'Other',
     this.rate,
   });
@@ -23,7 +23,7 @@ class Product {
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
     discountValue: 20,
@@ -31,7 +31,7 @@ class Product {
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
     discountValue: 20,
@@ -39,7 +39,7 @@ class Product {
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
     discountValue: 20,
@@ -47,7 +47,7 @@ class Product {
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
     discountValue: 20,
@@ -55,14 +55,14 @@ class Product {
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
   ),
   Product(
     id: '1',
     title: 'Evening Dress',
-    price: 18,
+    price: 40,
     imgUrl: AppImages.saleImage,
     category: 'Dorothy Perkins',
     discountValue: 20,

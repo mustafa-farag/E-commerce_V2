@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
   final bool isNew;
-  const ProductItem({Key? key, required this.product, required this.isNew}) : super(key: key);
+
+  const ProductItem({Key? key, required this.product, required this.isNew})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +30,20 @@ class ProductItem extends StatelessWidget {
                 height: 30,
                 width: 50,
                 child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: isNew==true? Colors.black : Theme.of(context).primaryColor ,
-                    ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: isNew == true
+                        ? Colors.black
+                        : Theme.of(context).primaryColor,
+                  ),
                   child: Center(
                     child: Text(
-                      isNew==true?'New':'-${product.discountValue.toString()}%',
+                      isNew == true
+                          ? 'New'
+                          : '-${product.discountValue.toString()}%',
                       style: Theme.of(context).textTheme.caption!.copyWith(
-                        color: Colors.white,
-                      ),
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                 ),
@@ -45,26 +51,49 @@ class ProductItem extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(
+          height: 8,
+        ),
         Text(
           product.category,
           style: Theme.of(context).textTheme.caption!.copyWith(
-            color: Colors.grey,
-          ),
+                color: Colors.grey,
+              ),
         ),
         Text(
           product.title,
           style: Theme.of(context).textTheme.subtitle1!.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+                fontWeight: FontWeight.w600,
+              ),
         ),
-        Text(
-          "${product.price.toString()}\$",
-          style: Theme.of(context).textTheme.subtitle2!.copyWith(
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).primaryColor,
+        if (isNew == false)
+          Row(
+            children: [
+              Text(
+                '${product.price.toString()}\$',
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.lineThrough,
+                      color: Colors.grey,
+                    ),
+              ),
+              Text(
+                ' ${product.price * (product.discountValue) / 100}\$',
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
+            ],
           ),
-        ),
+        if (isNew == true)
+          Text(
+            '${product.price.toString()}\$',
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).primaryColor,
+                ),
+          ),
       ],
     );
   }
