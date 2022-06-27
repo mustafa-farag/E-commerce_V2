@@ -9,6 +9,7 @@ class DefaultTextFormField extends StatelessWidget {
   final bool isSecure;
   final FocusNode? focusNode;
   final VoidCallback? onEditingComplete;
+  final Function(String)? onChanged;
   final TextInputAction? textInputAction;
 
   const DefaultTextFormField(
@@ -21,7 +22,8 @@ class DefaultTextFormField extends StatelessWidget {
       required this.labelText,
       this.focusNode,
       this.onEditingComplete,
-      this.textInputAction})
+      this.textInputAction,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class DefaultTextFormField extends StatelessWidget {
       validator: validate,
       focusNode: focusNode,
       onEditingComplete: onEditingComplete,
+      onChanged: onChanged,
       textInputAction: textInputAction,
       decoration: InputDecoration(
           label: Text(labelText),
