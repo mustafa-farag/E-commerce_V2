@@ -78,7 +78,7 @@ class ProductItem extends StatelessWidget {
                     ),
               ),
               Text(
-                ' ${product.price * (product.discountValue) / 100}\$',
+                ' ${product.price * (product.discountValue!) / 100}\$',
                 style: Theme.of(context).textTheme.subtitle2!.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).primaryColor,
