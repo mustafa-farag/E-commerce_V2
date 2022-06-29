@@ -9,7 +9,10 @@ class AuthController with ChangeNotifier {
   AuthFormType authFormType;
 
   AuthController(
-      {required this.auth, this.email='', this.password='', this.authFormType = AuthFormType.login});
+      {required this.auth,
+      this.email = '',
+      this.password = '',
+      this.authFormType = AuthFormType.login});
 
   void copyWith({
     String? email,
@@ -41,7 +44,7 @@ class AuthController with ChangeNotifier {
     }
   }
 
-  Future<void> submit()async {
+  Future<void> submit() async {
     try {
       if (authFormType == AuthFormType.login) {
         await auth.loginWithEmailAndPassword(email, password);
@@ -50,6 +53,14 @@ class AuthController with ChangeNotifier {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      await auth.logout();
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }

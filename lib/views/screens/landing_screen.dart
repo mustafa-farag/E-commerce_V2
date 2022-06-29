@@ -1,3 +1,4 @@
+import 'package:commercialapp/controllers/auth_controller.dart';
 import 'package:commercialapp/services/auth.dart';
 import 'package:commercialapp/views/screens/auth_screen.dart';
 import 'package:commercialapp/views/screens/bottomnavbar_screen.dart';
@@ -17,9 +18,13 @@ class LandingScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             final user = snapshot.data;
             if (user == null) {
-              return const AuthScreen();
+              return ChangeNotifierProvider<AuthController>(
+                  create: (_) => AuthController(auth: auth),
+                  child: const AuthScreen());
             } else {
-              return const BottomNavBarScreen();
+              return ChangeNotifierProvider<AuthController>(
+                  create: (_) => AuthController(auth: auth),
+                  child: const BottomNavBarScreen());
             }
           }
           // TODO: We will refactor this to make one component for loading
