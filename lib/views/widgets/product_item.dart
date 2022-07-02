@@ -2,7 +2,7 @@ import 'package:commercialapp/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
+  final Products product;
   final bool isNew;
 
   const ProductItem({Key? key, required this.product, required this.isNew})

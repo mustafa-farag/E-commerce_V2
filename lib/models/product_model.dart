@@ -1,16 +1,16 @@
 
 import '../utilities/images.dart';
 
-class Product {
+class Products {
   final String id;
   final String title;
   final int price;
   final String imgUrl;
   final int? discountValue;
   final String category;
-  final double? rate;
+  final int? rate;
 
-  Product({
+  Products({
     required this.id,
     required this.title,
     required this.price,
@@ -32,21 +32,21 @@ class Product {
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map, String documentId) {
-    return Product(
+  factory Products.fromMap(Map<String, dynamic> map, String documentId) {
+    return Products(
       id: documentId,
       title: map['title'] as String,
       price: map['price'] as int,
       imgUrl: map['imgUrl'] as String,
       discountValue: map['discountValue'] as int,
       category: map['category'] as String,
-      rate: map['rate'] as double,
+      rate: map['rate'] as int,
     );
   }
 }
 
-List<Product> dummyProducts = [
-  Product(
+List<Products> dummyProducts = [
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,
@@ -54,7 +54,7 @@ List<Product> dummyProducts = [
     category: 'Clothes',
     discountValue: 20,
   ),
-  Product(
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,
@@ -62,7 +62,7 @@ List<Product> dummyProducts = [
     category: 'Clothes',
     discountValue: 20,
   ),
-  Product(
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,
@@ -70,7 +70,7 @@ List<Product> dummyProducts = [
     category: 'Clothes',
     discountValue: 20,
   ),
-  Product(
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,
@@ -78,14 +78,14 @@ List<Product> dummyProducts = [
     category: 'Clothes',
     discountValue: 20,
   ),
-  Product(
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,
     imgUrl: AppImages.saleImage,
     category: 'Clothes',
   ),
-  Product(
+  Products(
     id: '1',
     title: 'T-shirt',
     price: 300,

@@ -1,4 +1,5 @@
 import 'package:commercialapp/controllers/auth_controller.dart';
+import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/services/auth.dart';
 import 'package:commercialapp/views/screens/auth_screen.dart';
 import 'package:commercialapp/views/screens/bottomnavbar_screen.dart';
@@ -24,7 +25,9 @@ class LandingScreen extends StatelessWidget {
             } else {
               return ChangeNotifierProvider<AuthController>(
                   create: (_) => AuthController(auth: auth),
-                  child: const BottomNavBarScreen());
+                  child: Provider<Database>(
+                    create: (_) => FirestoreDatabase(user: user.uid),
+                      child: const BottomNavBarScreen()));
             }
           }
           // TODO: We will refactor this to make one component for loading

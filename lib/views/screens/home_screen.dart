@@ -1,7 +1,9 @@
+import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/images.dart';
 import 'package:commercialapp/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final database = Provider.of<Database>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -59,14 +62,33 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 300,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) =>
-                          ProductItem(product: dummyProducts[index],isNew: false,),
-                      separatorBuilder: (context, index) => const SizedBox(
-                            width: 20.0,
-                          ),
-                      itemCount: dummyProducts.length),
+                  child: StreamBuilder<List<Products>>(
+                      stream: database.saleProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            return const Center(
+                              child: Text('No Data Available!'),
+                            );
+                          }
+                          return ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => ProductItem(
+                                    product: products[index],
+                                    isNew: false,
+                                  ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
+                                    width: 20.0,
+                                  ),
+                              itemCount: products.length);
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }),
                 ),
                 SizedBox(
                   height: size.height * 0.02,
@@ -78,19 +100,36 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 300,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) =>
-                          ProductItem(product: dummyProducts[index], isNew: true,),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 20.0,
-                      ),
-                      itemCount: dummyProducts.length),
+                  child: StreamBuilder<List<Products>>(
+                    stream: database.newProductsStream(),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.active){
+                        final products = snapshot.data;
+                        if(products == null || products.isEmpty){
+                          return const Center(
+                            child: Text('No Data Available'),
+                          );
+                        }
+                        return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => ProductItem(
+                              product: products[index],
+                              isNew: true,
+                            ),
+                            separatorBuilder: (context, index) => const SizedBox(
+                              width: 20.0,
+                            ),
+                            itemCount: products.length);
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.038,
                 ),
-
               ],
             ),
           ),
