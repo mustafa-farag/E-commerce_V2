@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       create: (_)=> Auth(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         theme: ThemeData(
           primaryColor: const Color.fromRGBO(211, 38, 38, 1),
           scaffoldBackgroundColor: const Color.fromRGBO(249, 249, 249, 1),
