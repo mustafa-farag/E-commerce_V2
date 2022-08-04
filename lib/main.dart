@@ -24,6 +24,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: const Color.fromRGBO(211, 38, 38, 1),
           scaffoldBackgroundColor: const Color.fromRGBO(249, 249, 249, 1),
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            iconTheme: const IconThemeData(
+              color: Colors.black,
+            ),
+            titleTextStyle: Theme.of(context).textTheme.headline6
+          ),
         ),
         onGenerateRoute: onGenerateRouter,
         initialRoute: AppRoutes.landingScreenRoute ,
