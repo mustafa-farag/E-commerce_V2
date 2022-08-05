@@ -1,6 +1,7 @@
 import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/images.dart';
+import 'package:commercialapp/views/widgets/home_head_line_widget.dart';
 import 'package:commercialapp/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,8 +56,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               children: [
-                _homeHeadlines(context,
-                    title: "Sale", caption: "Super summer sale"),
+                const HomeHeadLine(title: "Sale", caption: "Super summer sale"),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                _homeHeadlines(context,
+                const HomeHeadLine(
                     title: "New", caption: "You've never seen it before!"),
                 SizedBox(
                   height: size.height * 0.02,
@@ -101,31 +101,32 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 300,
                   child: StreamBuilder<List<Products>>(
-                    stream: database.newProductsStream(),
-                    builder: (context, snapshot) {
-                      if(snapshot.connectionState == ConnectionState.active){
-                        final products = snapshot.data;
-                        if(products == null || products.isEmpty){
-                          return const Center(
-                            child: Text('No Data Available'),
-                          );
+                      stream: database.newProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            return const Center(
+                              child: Text('No Data Available'),
+                            );
+                          }
+                          return ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => ProductItem(
+                                    product: products[index],
+                                    isNew: true,
+                                  ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(
+                                    width: 20.0,
+                                  ),
+                              itemCount: products.length);
                         }
-                        return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ProductItem(
-                              product: products[index],
-                              isNew: true,
-                            ),
-                            separatorBuilder: (context, index) => const SizedBox(
-                              width: 20.0,
-                            ),
-                            itemCount: products.length);
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  ),
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }),
                 ),
                 SizedBox(
                   height: size.height * 0.038,
@@ -137,41 +138,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _homeHeadlines(context,
-          {required String title,
-          required String caption,
-          VoidCallback? onTap}) =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              InkWell(
-                onTap: onTap,
-                child: Text(
-                  'View all',
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: Colors.black,
-                      ),
-                ),
-              )
-            ],
-          ),
-          Text(
-            caption,
-            style: Theme.of(context).textTheme.caption!.copyWith(
-                  color: Colors.grey,
-                ),
-          )
-        ],
-      );
 }
