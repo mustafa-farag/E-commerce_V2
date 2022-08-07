@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                   height: size.height * 0.02,
                 ),
                 SizedBox(
-                  height: 300,
+                  height: 340,
                   child: StreamBuilder<List<Products>>(
                       stream: database.saleProductsStream(),
                       builder: (context, snapshot) {
@@ -99,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                   height: size.height * 0.02,
                 ),
                 SizedBox(
-                  height: 300,
+                  height: 340,
                   child: StreamBuilder<List<Products>>(
                       stream: database.newProductsStream(),
                       builder: (context, snapshot) {

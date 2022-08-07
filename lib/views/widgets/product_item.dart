@@ -1,12 +1,13 @@
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductItem extends StatelessWidget {
   final Products product;
   final bool isNew;
 
-  const ProductItem({Key? key, required this.product, required this.isNew})
+  const ProductItem({Key? key, required this.product, required this.isNew,})
       : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class ProductItem extends StatelessWidget {
                 child: Image.network(
                   product.imgUrl,
                   fit: BoxFit.cover,
-                  height: 230,
+                  height: 240,
                   width: 150,
                 ),
               ),
@@ -54,6 +55,21 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          RatingBarIndicator(
+            direction:Axis.horizontal,
+            rating: 4.0,
+            unratedColor: Colors.amber.withAlpha(50),
+            itemCount: 5,
+            itemSize: 20.0,
+            itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+            itemBuilder: (context, _) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
           ),
           const SizedBox(
             height: 8,
