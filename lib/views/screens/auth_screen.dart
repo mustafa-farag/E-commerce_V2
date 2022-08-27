@@ -1,7 +1,5 @@
 import 'package:commercialapp/controllers/auth_controller.dart';
-import 'package:commercialapp/services/auth.dart';
 import 'package:commercialapp/utilities/enums.dart';
-import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/widgets/default_button.dart';
 import 'package:commercialapp/views/widgets/default_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +52,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final auth = Provider.of<AuthBase>(context);
     return Consumer<AuthController>(
       builder: (_, model, __) => Scaffold(
         body: SafeArea(

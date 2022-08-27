@@ -7,8 +7,11 @@ class ProductItem extends StatelessWidget {
   final Products product;
   final bool isNew;
 
-  const ProductItem({Key? key, required this.product, required this.isNew,})
-      : super(key: key);
+  const ProductItem({
+    Key? key,
+    required this.product,
+    required this.isNew,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,38 +22,62 @@ class ProductItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
+            alignment: Alignment.bottomRight,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.network(
-                  product.imgUrl,
-                  fit: BoxFit.cover,
-                  height: 240,
-                  width: 150,
+              SizedBox(
+                height: 265,
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        product.imgUrl,
+                        fit: BoxFit.cover,
+                        height: 240,
+                        width: 150,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 30,
+                        width: 50,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25.0),
+                            color: isNew == true
+                                ? Colors.black
+                                : Theme.of(context).primaryColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              isNew == true
+                                  ? 'New'
+                                  : '-${product.discountValue.toString()}%',
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        color: Colors.white,
+                                      ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 30,
-                  width: 50,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: isNew == true
-                          ? Colors.black
-                          : Theme.of(context).primaryColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        isNew == true
-                            ? 'New'
-                            : '-${product.discountValue.toString()}%',
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
+                padding: const EdgeInsets.only(right: 6.0, bottom: 6.0),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60.0),
+                    color: Colors.white,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.favorite_border_outlined),
                   ),
                 ),
               ),
@@ -59,17 +86,25 @@ class ProductItem extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          RatingBarIndicator(
-            direction:Axis.horizontal,
-            rating: 4.0,
-            unratedColor: Colors.amber.withAlpha(50),
-            itemCount: 5,
-            itemSize: 20.0,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
+          Row(
+            children: [
+              RatingBarIndicator(
+                direction: Axis.horizontal,
+                rating: 4.0,
+                unratedColor: Colors.amber.withAlpha(50),
+                itemCount: 5,
+                itemSize: 22.0,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+              ),
+              Text(
+                '(10)',
+                style: Theme.of(context).textTheme.caption,
+              )
+            ],
           ),
           const SizedBox(
             height: 8,
