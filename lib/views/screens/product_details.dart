@@ -1,5 +1,6 @@
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/views/widgets/default_button.dart';
+import 'package:commercialapp/views/widgets/drop_down_menu.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -12,6 +13,7 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  late String dropdownValue;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -31,9 +33,9 @@ class _ProductDetailsState extends State<ProductDetails> {
           children: [
             Image.network(
               widget.product.imgUrl,
-              fit: BoxFit.cover,
               width: double.infinity,
-              height: size.height * 0.5,
+              height: size.height * 0.55,
+              fit: BoxFit.cover,
             ),
             SizedBox(
               height: size.height * 0.02,
@@ -44,8 +46,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Spacer(),
+                      SizedBox(
+                        height: 60,
+                        child: DropDownMenuComponent(
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                          items: const ['S', 'M', 'L', 'XL', 'XXL'],
+                          hint: 'Size',
+                        ),
+                      ),
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -53,7 +67,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           });
                         },
                         child: CircleAvatar(
-                          radius: size.width * 0.06,
+                          radius: size.width * 0.075,
                           backgroundColor: Colors.white,
                           child: isFavorites == false
                               ? const Icon(
@@ -97,11 +111,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Text(
                     'this is a dummy description for this product and i will add '
                     'it in the future i wrote this few words to be more than two lines ',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(fontWeight: FontWeight.normal),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
                   ),
-                  const SizedBox(height: 20,),
-                  DefaultButton(onPressed: (){}, text: 'Add to cart'),
-                  const SizedBox(height: 20,)
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DefaultButton(onPressed: () {}, text: 'Add to cart'),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
