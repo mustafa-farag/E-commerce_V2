@@ -26,7 +26,7 @@ class LandingScreen extends StatelessWidget {
               return ChangeNotifierProvider<AuthController>(
                   create: (_) => AuthController(auth: auth),
                   child: Provider<Database>(
-                    create: (_) => FirestoreDatabase(user: user.uid),
+                    create: (_) => FirestoreDatabase(uid: user.uid),
                       child: const BottomNavBarScreen()));
             }
           }

@@ -11,7 +11,7 @@ class AuthController with ChangeNotifier {
   String email;
   String password;
   AuthFormType authFormType;
-  final database = FirestoreDatabase(user: '123');
+  final database = FirestoreDatabase(uid: '123');
 
   AuthController(
       {required this.auth,
@@ -54,9 +54,9 @@ class AuthController with ChangeNotifier {
       if (authFormType == AuthFormType.login) {
         await auth.loginWithEmailAndPassword(email, password);
       } else {
-        await auth.registerWithEmailAndPassword(email, password);
+        final user = await auth.registerWithEmailAndPassword(email, password);
         await database.setUserData(UserData(
-          uid: documentIdFromLocalData(),
+          uid: user?.uid ?? documentIdFromLocalData(),
           email: email,
         ));
       }

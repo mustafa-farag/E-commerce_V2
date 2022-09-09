@@ -1,9 +1,11 @@
+import 'package:commercialapp/controllers/cart_controller.dart';
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/screens/auth_screen.dart';
 import 'package:commercialapp/views/screens/bottomnavbar_screen.dart';
 import 'package:commercialapp/views/screens/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../views/screens/landing_screen.dart';
 
@@ -19,8 +21,11 @@ Route<dynamic> onGenerateRouter(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);
     case AppRoutes.productDetails:
-      final product = settings.arguments as Products ;
-      return MaterialPageRoute(builder: (_) => ProductDetails(product: product) );
+      final product = settings.arguments as Products;
+      return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+              create: (_) => CartController(),
+              child: ProductDetails(product: product)));
     default:
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);

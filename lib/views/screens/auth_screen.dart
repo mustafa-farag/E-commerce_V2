@@ -24,8 +24,6 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       await model.submit();
       if (!mounted) return;
-      // Navigator.pop(context);
-      // Navigator.of(context).pushNamed(AppRoutes.bottomNavBarScreenRoute);
     } catch (e) {
       /// todo: it will be refactor
       showDialog(
@@ -152,7 +150,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             model.toggleFormType();
                           },
                           child: Text(
-                            model.toggleText('Login', 'Sign up'),
+                            model.toggleText('Sign Up', 'Login'),
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2!
