@@ -1,3 +1,4 @@
+import 'package:commercialapp/views/screens/cart_screen.dart';
 import 'package:commercialapp/views/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,7 +54,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     return [
       const HomeScreen(),
       Container(),
-      Container(),
+      const CartScreen(),
       Container(),
       const ProfileScreen()
     ];
