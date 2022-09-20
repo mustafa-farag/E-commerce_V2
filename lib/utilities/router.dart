@@ -1,4 +1,5 @@
 import 'package:commercialapp/controllers/cart_controller.dart';
+import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/screens/auth_screen.dart';
@@ -21,11 +22,15 @@ Route<dynamic> onGenerateRouter(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);
     case AppRoutes.productDetails:
-      final product = settings.arguments as Products;
+      final args = settings.arguments as Map<String, dynamic>;
+      final product = args['product'];
+      final database = args['database'];
       return MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-              create: (_) => CartController(),
-              child: ProductDetails(product: product)));
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: ProductDetails(product: product),
+        ),
+      );
     default:
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);

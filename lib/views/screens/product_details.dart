@@ -6,8 +6,6 @@ import 'package:commercialapp/views/widgets/default_button.dart';
 import 'package:commercialapp/views/widgets/drop_down_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../controllers/cart_controller.dart';
 import '../widgets/main_dialog.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -47,122 +45,120 @@ class _ProductDetailsState extends State<ProductDetails> {
     final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
     bool isFavorites = false;
-    return Consumer<CartController>(
-      builder: (_, model, __) => Scaffold(
-        appBar: AppBar(
-          title: Text(widget.product.title),
-          actions: const [
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.product.title),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Icon(Icons.share),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              widget.product.imgUrl,
+              width: double.infinity,
+              height: size.height * 0.55,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
             Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.share),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image.network(
-                widget.product.imgUrl,
-                width: double.infinity,
-                height: size.height * 0.55,
-                fit: BoxFit.cover,
-              ),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 60,
-                          child: DropDownMenuComponent(
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                            items: const ['S', 'M', 'L', 'XL', 'XXL'],
-                            hint: 'Size',
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 60,
+                        child: DropDownMenuComponent(
+                          onChanged: (String? newValue) {
                             setState(() {
-                              isFavorites = !isFavorites;
+                              dropdownValue = newValue!;
                             });
                           },
-                          child: CircleAvatar(
-                            radius: size.width * 0.075,
-                            backgroundColor: Colors.white,
-                            child: isFavorites == false
-                                ? const Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.black,
-                                  )
-                                : const Icon(
-                                    Icons.favorite,
-                                    color: Colors.black,
-                                  ),
+                          items: const ['S', 'M', 'L', 'XL', 'XXL'],
+                          hint: 'Size',
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            isFavorites = !isFavorites;
+                          });
+                        },
+                        child: CircleAvatar(
+                          radius: size.width * 0.075,
+                          backgroundColor: Colors.white,
+                          child: isFavorites == false
+                              ? const Icon(
+                            Icons.favorite_border,
+                            color: Colors.black,
+                          )
+                              : const Icon(
+                            Icons.favorite,
+                            color: Colors.black,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.product.title,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        Text(
-                          '\$${widget.product.price}',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      widget.product.category,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'this is a dummy description for this product and i will add '
-                      'it in the future i wrote this few words to be more than two lines ',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(fontWeight: FontWeight.normal),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    DefaultButton(
-                      onPressed:(){
-                        _addToCart(database);
-                      },
-                      text: 'Add to cart',
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.product.title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Text(
+                        '\$${widget.product.price}',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    widget.product.category,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'this is a dummy description for this product and i will add '
+                        'it in the future i wrote this few words to be more than two lines ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DefaultButton(
+                    onPressed:(){
+                      _addToCart(database);
+                    },
+                    text: 'Add to cart',
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
