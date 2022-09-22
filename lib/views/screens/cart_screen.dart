@@ -1,6 +1,7 @@
 import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/add_to_cart.dart';
 import 'package:commercialapp/views/widgets/cart_list_item.dart';
+import 'package:commercialapp/views/widgets/order_summary_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<Database>(context);
+    int totalAmount =0;
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -27,7 +29,7 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Text(
                 'My Cart',
@@ -66,6 +68,7 @@ class CartScreen extends StatelessWidget {
                   );
                 },
               ),
+              OrderSummaryItem(title: 'Total Amount', value: totalAmount.toString()),
             ],
           ),
         ),

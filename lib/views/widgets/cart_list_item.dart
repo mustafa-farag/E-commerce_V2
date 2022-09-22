@@ -16,11 +16,18 @@ class CartListItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.network(
-              cartItem.imgUrl,
-              fit: BoxFit.cover,
-              height: 125,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
+              child: Image.network(
+                cartItem.imgUrl,
+                fit: BoxFit.cover,
+                height: 125,
+              ),
             ),
+            const SizedBox(width: 16,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,6 +60,7 @@ class CartListItem extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(width: 5,),
                     Text.rich(
                       TextSpan(
                         children: <TextSpan>[
@@ -77,16 +85,20 @@ class CartListItem extends StatelessWidget {
                 )
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Icon(Icons.more_vert),
-                Text(
-                  '${cartItem.price}\$',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0,),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Icon(Icons.more_vert),
+                  Text(
+                    '${cartItem.price}\$',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  )
+                ],
+              ),
             ),
           ],
         ),
