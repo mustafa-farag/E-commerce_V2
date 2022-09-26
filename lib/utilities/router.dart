@@ -4,6 +4,7 @@ import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/screens/auth_screen.dart';
 import 'package:commercialapp/views/screens/bottomnavbar_screen.dart';
+import 'package:commercialapp/views/screens/checkout/checkout_screen.dart';
 import 'package:commercialapp/views/screens/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,9 @@ Route<dynamic> onGenerateRouter(RouteSettings settings) {
           child: ProductDetails(product: product),
         ),
       );
+    case AppRoutes.checkout:
+      return MaterialPageRoute(
+          builder: (_) => const CheckoutScreen(), settings: settings);
     default:
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);

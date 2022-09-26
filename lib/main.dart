@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.grey[200],
           primaryColor: const Color.fromRGBO(211, 38, 38, 1),
-          scaffoldBackgroundColor: const Color.fromRGBO(249, 249, 249, 1),
           appBarTheme: AppBarTheme(
             color: Colors.white,
+            elevation: 0,
             iconTheme: const IconThemeData(
               color: Colors.black,
             ),

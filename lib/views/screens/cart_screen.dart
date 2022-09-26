@@ -1,5 +1,6 @@
 import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/add_to_cart.dart';
+import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/widgets/cart_list_item.dart';
 import 'package:commercialapp/views/widgets/default_button.dart';
 import 'package:commercialapp/views/widgets/order_summary_item.dart';
@@ -96,7 +97,15 @@ class _CartScreenState extends State<CartScreen> {
               const SizedBox(
                 height: 20,
               ),
-              DefaultButton(onPressed: () {}, text: 'Checkout'),
+              DefaultButton(
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                    rootNavigator: true,
+                  ).pushNamed(AppRoutes.checkout);
+                },
+                text: 'Checkout',
+              ),
             ],
           ),
         ),
