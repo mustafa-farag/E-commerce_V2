@@ -33,8 +33,13 @@ Route<dynamic> onGenerateRouter(RouteSettings settings) {
         ),
       );
     case AppRoutes.checkout:
+      final database = settings.arguments as Database;
       return MaterialPageRoute(
-          builder: (_) => const CheckoutScreen(), settings: settings);
+          builder: (_) => Provider<Database>.value(
+                value: database,
+                child: const CheckoutScreen(),
+              ),
+          settings: settings);
     default:
       return MaterialPageRoute(
           builder: (_) => const LandingScreen(), settings: settings);

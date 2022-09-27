@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../models/delivery_methods.dart';
 
 class DeliveryMethodItem extends StatelessWidget {
-  final String imgUrl;
-  const DeliveryMethodItem({Key? key, required this.imgUrl}) : super(key: key);
+  final DeliveryMethod deliveryMethod;
+  const DeliveryMethodItem({Key? key, required this.deliveryMethod}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class DeliveryMethodItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
-              imgUrl,
+              deliveryMethod.imgUrl,
               fit: BoxFit.cover,
               height: 35,
               width: 100,
@@ -26,7 +27,7 @@ class DeliveryMethodItem extends StatelessWidget {
               height: 5.0,
             ),
             Text(
-              '3-5 Days',
+              deliveryMethod.days,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Colors.grey,
                   ),

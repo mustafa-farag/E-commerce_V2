@@ -35,6 +35,7 @@ class _CartScreenState extends State<CartScreen> {
     final database = Provider.of<Database>(context);
     return SafeArea(
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(

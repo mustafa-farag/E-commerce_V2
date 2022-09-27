@@ -1,4 +1,5 @@
 import 'package:commercialapp/models/add_to_cart.dart';
+import 'package:commercialapp/models/delivery_methods.dart';
 import 'package:commercialapp/models/product_model.dart';
 import 'package:commercialapp/models/user_data.dart';
 import 'package:commercialapp/services/firestore_services.dart';
@@ -8,6 +9,8 @@ abstract class Database {
   Stream<List<Products>> saleProductsStream();
 
   Stream<List<Products>> newProductsStream();
+
+  Stream<List<DeliveryMethod>> deliveryMethodsStream();
 
   Future<void> setUserData(UserData userData);
 
@@ -56,4 +59,12 @@ class FirestoreDatabase implements Database {
       builder: (data, documentId) => AddToCartModel.fromMap(data!, documentId),
     );
   }
+
+  @override
+  Stream<List<DeliveryMethod>> deliveryMethodsStream() =>
+      _service.collectionsStream(
+        path: ApiPath.deliveryMethods(),
+        builder: (data, documentId) =>
+            DeliveryMethod.fromMap(data!, documentId),
+      );
 }
