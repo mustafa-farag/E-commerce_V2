@@ -1,6 +1,7 @@
 import 'package:commercialapp/models/add_to_cart.dart';
 import 'package:commercialapp/models/delivery_methods.dart';
 import 'package:commercialapp/models/product_model.dart';
+import 'package:commercialapp/models/shipping_address.dart';
 import 'package:commercialapp/models/user_data.dart';
 import 'package:commercialapp/services/firestore_services.dart';
 import 'package:commercialapp/utilities/api_pathes.dart';
@@ -17,6 +18,8 @@ abstract class Database {
   Future<void> addToCart(AddToCartModel cartModel);
 
   Stream<List<AddToCartModel>> cartProductsStream();
+
+  Stream<List<ShippingAddress>> shippingAddressesStream();
 }
 
 class FirestoreDatabase implements Database {
@@ -66,5 +69,12 @@ class FirestoreDatabase implements Database {
         path: ApiPath.deliveryMethods(),
         builder: (data, documentId) =>
             DeliveryMethod.fromMap(data!, documentId),
+      );
+
+  @override
+  Stream<List<ShippingAddress>> shippingAddressesStream() =>
+      _service.collectionsStream(
+        path: ApiPath.shippingAddress(uid),
+        builder: (data,documentId) => ShippingAddress.fromMap(data!, documentId),
       );
 }
