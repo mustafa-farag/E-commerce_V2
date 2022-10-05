@@ -1,5 +1,7 @@
 import 'package:commercialapp/controllers/database_controller.dart';
 import 'package:commercialapp/models/delivery_methods.dart';
+import 'package:commercialapp/models/shipping_address.dart';
+import 'package:commercialapp/utilities/routes.dart';
 import 'package:commercialapp/views/widgets/checkout/checkout_order_details.dart';
 import 'package:commercialapp/views/widgets/checkout/delivery_methods.dart';
 import 'package:commercialapp/views/widgets/checkout/payment.dart';
@@ -37,7 +39,48 @@ class CheckoutScreen extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              const ShippingAddressItem(),
+              StreamBuilder<List<ShippingAddress>>(
+                stream: database.shippingAddressesStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.active) {
+                    final shippingAddress = snapshot.data;
+                    if (shippingAddress == null || shippingAddress.isEmpty) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              'No delivery Method available!',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.of(context).pushNamed(
+                                AppRoutes.addShippingAddressRoute,
+                                arguments: database,
+                              ),
+                              child: Text(
+                                'Add new one',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return const ShippingAddressItem();
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
               const SizedBox(
                 height: 32.0,
               ),
@@ -89,8 +132,11 @@ class CheckoutScreen extends StatelessWidget {
                         );
                       }
                       return ListView.separated(
-                        itemBuilder: (_,index) => DeliveryMethodItem(deliveryMethod: deliveryMethod[index]),
-                        separatorBuilder: (_,index) => const SizedBox(width: 20.0,),
+                        itemBuilder: (_, index) => DeliveryMethodItem(
+                            deliveryMethod: deliveryMethod[index]),
+                        separatorBuilder: (_, index) => const SizedBox(
+                          width: 20.0,
+                        ),
                         itemCount: deliveryMethod.length,
                       );
                     }

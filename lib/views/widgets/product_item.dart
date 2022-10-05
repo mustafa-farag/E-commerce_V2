@@ -20,7 +20,7 @@ class ProductItem extends StatelessWidget {
     final database = Provider.of<Database>(context);
     return InkWell(
       onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
-        AppRoutes.productDetails,
+        AppRoutes.productDetailsRoute,
         // TODO: we need to refactor arguments here cause it's not the best practice
         arguments: {
           'product': product,
