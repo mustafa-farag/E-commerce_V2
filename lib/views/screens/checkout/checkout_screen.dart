@@ -43,8 +43,8 @@ class CheckoutScreen extends StatelessWidget {
                 stream: database.shippingAddressesStream(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.active) {
-                    final shippingAddress = snapshot.data;
-                    if (shippingAddress == null || shippingAddress.isEmpty) {
+                    final shippingAddresses = snapshot.data;
+                    if (shippingAddresses == null || shippingAddresses.isEmpty) {
                       return Center(
                         child: Column(
                           children: [
@@ -74,7 +74,8 @@ class CheckoutScreen extends StatelessWidget {
                         ),
                       );
                     }
-                    return const ShippingAddressItem();
+                    final shippingAddress = shippingAddresses.first;
+                    return ShippingAddressItem(shippingAddress: shippingAddress,);
                   }
                   return const Center(
                     child: CircularProgressIndicator(),

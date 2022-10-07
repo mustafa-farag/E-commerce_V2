@@ -103,7 +103,10 @@ class _CartScreenState extends State<CartScreen> {
                   Navigator.of(
                     context,
                     rootNavigator: true,
-                  ).pushNamed(AppRoutes.checkoutRoute);
+                  ).pushNamed(
+                    AppRoutes.checkoutRoute,
+                    arguments: database,
+                  );
                 },
                 text: 'Checkout',
               ),

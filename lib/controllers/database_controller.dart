@@ -20,6 +20,8 @@ abstract class Database {
   Stream<List<AddToCartModel>> cartProductsStream();
 
   Stream<List<ShippingAddress>> shippingAddressesStream();
+
+  Future<void> saveAddress(ShippingAddress shippingAddress);
 }
 
 class FirestoreDatabase implements Database {
@@ -75,6 +77,13 @@ class FirestoreDatabase implements Database {
   Stream<List<ShippingAddress>> shippingAddressesStream() =>
       _service.collectionsStream(
         path: ApiPath.shippingAddress(uid),
-        builder: (data,documentId) => ShippingAddress.fromMap(data!, documentId),
+        builder: (data, documentId) =>
+            ShippingAddress.fromMap(data!, documentId),
+      );
+
+  @override
+  Future<void> saveAddress(ShippingAddress shippingAddress) => _service.setData(
+        path: ApiPath.saveAddress(uid, shippingAddress.id),
+        data: shippingAddress.toMap(),
       );
 }
